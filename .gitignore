@@ -1,0 +1,9 @@
+/target/
+**/*.rs.bk
+/debian/.debhelper/
+/debian/debhelper-build-stamp
+/debian/files
+/debian/*.debhelper.log
+/debian/*.substvars
+/debian/*.postrm.debhelper
+/debian/anonsurf/

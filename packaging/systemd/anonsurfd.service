@@ -1,0 +1,20 @@
+[Unit]
+Description=AnonSurf Rust daemon
+After=network-online.target dbus.service
+Wants=network-online.target
+
+[Service]
+Type=dbus
+BusName=org.anonsurf.rs1
+ExecStart=/usr/libexec/anonsurf-rs/anonsurfd
+Restart=on-failure
+RuntimeDirectory=anonsurf-rs
+StateDirectory=anonsurf-rs
+ConfigurationDirectory=anonsurf-rs
+
+# anonsurfd intentionally needs root networking privileges: nftables/iptables,
+# resolver repair, private Tor lifecycle, and conservative rollback.
+NoNewPrivileges=no
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,43 @@
+#compdef anonsurf
+
+_anonsurf() {
+  local -a commands
+  commands=(
+    'start:Start private Tor routing'
+    'stop:Stop routing and restore managed networking'
+    'restart:Restart routing'
+    'status:Show daemon status'
+    'changeid:Legacy alias for new-identity'
+    'new-identity:Request Tor NEWNYM'
+    'myip:Legacy alias for tor-check'
+    'tor-check:Check Tor exit IP'
+    'repair:Conservatively repair networking'
+    'logs:Show daemon logs'
+    'doctor:Check local dependencies'
+    'completions:Print shell completions'
+    'config:Manage configuration'
+  )
+
+  _arguments \
+    '--json[Print daemon JSON without human formatting]' \
+    '1:command:->cmds' \
+    '*::arg:->args'
+
+  case $state in
+    cmds)
+      _describe -t commands 'anonsurf commands' commands
+      ;;
+    args)
+      case $words[2] in
+        config)
+          _values 'config command' show-default apply-default apply-file help
+          ;;
+        completions)
+          _values 'shell' bash zsh fish
+          ;;
+      esac
+      ;;
+  esac
+}
+
+_anonsurf "$@"

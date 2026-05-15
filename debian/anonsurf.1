@@ -1,0 +1,58 @@
+.TH ANONSURF 1
+.SH NAME
+anonsurf \- Tor transparent proxy manager
+.SH SYNOPSIS
+.B anonsurf
+[\fB--json\fR]
+\fICOMMAND\fR
+.SH DESCRIPTION
+anonsurf controls the privileged anonsurfd service over D-Bus. The daemon runs a
+private Tor instance, applies dedicated firewall rules, snapshots DNS state, and
+can conservatively repair networking.
+.SH COMMANDS
+.TP
+.B start
+Start private Tor routing.
+.TP
+.B stop
+Stop routing and restore managed networking changes.
+.TP
+.B restart
+Restart routing.
+.TP
+.B status
+Show status, Tor state, exit IP, DNS backend, firewall backend, and bridge mode.
+.TP
+.B changeid
+Legacy alias for requesting a new Tor identity.
+.TP
+.B new-identity
+Request Tor NEWNYM through the private control port.
+.TP
+.B myip
+Legacy alias for Tor exit IP check.
+.TP
+.B tor-check
+Check whether the current Tor proxy exit is recognized by Tor Project.
+.TP
+.B repair
+Restore DNS snapshots, remove managed firewall rules, and stop private Tor.
+.TP
+.B logs
+Show daemon ring-buffer logs.
+.TP
+.B doctor
+Check local runtime dependencies.
+.TP
+.B completions
+Print shell completions for bash, zsh, or fish.
+.SH FILES
+.TP
+.I /etc/anonsurf-rs/config.toml
+Daemon configuration.
+.TP
+.I /run/anonsurf-rs/
+Runtime files including generated torrc and pid file.
+.TP
+.I /var/lib/anonsurf-rs/
+State, private Tor data, and rollback snapshots.

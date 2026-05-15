@@ -1,0 +1,9 @@
+[package]
+name = "anonsurf-firewall"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anonsurf-core = { path = "../anonsurf-core" }
+anyhow.workspace = true

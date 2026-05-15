@@ -1,0 +1,35 @@
+Source: anonsurf
+Section: net
+Priority: optional
+Maintainer: Parrot Team <team@parrotsec.org>
+Standards-Version: 4.5.0
+Build-Depends:
+ debhelper-compat (= 12),
+ cargo,
+ rustc,
+ pkg-config,
+ libgtk-4-dev,
+ libadwaita-1-dev
+Homepage: https://www.parrotsec.org/
+Rules-Requires-Root: no
+
+Package: anonsurf
+Architecture: any
+Priority: optional
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ dbus,
+ tor,
+ curl,
+ systemd | systemd-tmpfiles,
+ polkitd | policykit-1,
+ nftables | iptables
+Recommends: obfs4proxy, torsocks, tor-geoipdb
+Suggests: resolvconf
+Description: distro-agnostic Tor transparent proxy manager
+ AnonSurf helps route workstation traffic through a private Tor instance.
+ .
+ This Rust rewrite provides a privileged D-Bus daemon, clap CLI,
+ GTK4/libadwaita GUI, private Tor configuration, dedicated firewall rules,
+ DNS rollback snapshots, and conservative repair tooling.

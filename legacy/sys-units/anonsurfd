@@ -1,0 +1,77 @@
+#!/bin/bash
+
+### END INIT INFO
+#
+# Devs:
+# Lorenzo 'Palinuro' Faletra <palinuro@parrotsec.org>
+# Lisetta 'Sheireen' Ferrero <sheireen@autistiche.org>
+# Francesco 'Mibofra' Bonanno <mibofra@parrotsec.org>
+#
+# Extended:
+# Daniel 'Sawyer' Garcia <dagaba13@gmail.com>
+#
+# anonsurf is free software: you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+# You can get a copy of the license at www.gnu.org/licenses
+#
+# anonsurf is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Parrot Security OS. If not, see <http://www.gnu.org/licenses/>.
+
+# THIS IS SYSTEM UNIT FOR SYSVINIT
+# The script is made with apache2's init.d script as example
+PIDFILE="/var/run/anonsurf.pid"
+
+do_start() {
+	# Return
+	#   status code of starting anondaemon start
+	#   1 if anondaemon is started
+	if [ -f "$PIDFILE" ]; then
+		return 1
+	else
+		/usr/lib/anonsurf/anondaemon start
+		return $?
+	fi
+}
+
+
+do_stop() {
+		# Return
+	#   status code of starting anondaemon start
+	#   1 if anondaemon is not started
+	if [ -e "$PIDFILE" ]; then
+		return 1
+	else
+		/usr/lib/anonsurf/anondaemon stop
+		return $?
+	fi
+}
+
+
+do_restart() {
+	# TODO if anondaemon is not started, return -1, else
+	/usr/lib/anonsurf/anondaemon restart
+}
+
+case "$1" in
+	start)
+		do_start
+	;;
+	stop)
+		do_stop
+	;;
+	restart)
+		do_restart
+	;;
+	status)
+		status_of_proc /usr/lib/anonsurf/anondaemon
+	;;
+	*)
+esac
+exit $?

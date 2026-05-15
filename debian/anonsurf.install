@@ -1,0 +1,14 @@
+target/release/anonsurf usr/bin/
+target/release/anonsurf-gui usr/bin/
+target/release/anonsurfd usr/libexec/anonsurf-rs/
+packaging/systemd/anonsurfd.service lib/systemd/system/
+packaging/dbus/org.anonsurf.rs1.conf usr/share/dbus-1/system.d/
+packaging/polkit/org.anonsurf.rs1.policy usr/share/polkit-1/actions/
+packaging/desktop/org.anonsurf.rs1.desktop usr/share/applications/
+packaging/completions/anonsurf.bash usr/share/bash-completion/completions/
+packaging/completions/_anonsurf usr/share/zsh/vendor-completions/
+packaging/completions/anonsurf.fish usr/share/fish/vendor_completions.d/
+packaging/config/config.toml etc/anonsurf-rs/
+configs/onion.pac etc/anonsurf-rs/
+configs/bridges.txt etc/anonsurf-rs/
+icons/anonsurf.png usr/share/icons/hicolor/256x256/apps/

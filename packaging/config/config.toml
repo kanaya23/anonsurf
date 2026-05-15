@@ -1,0 +1,26 @@
+[tor]
+binary = "tor"
+trans_port = 9040
+socks_port = 9050
+dns_port = 9053
+control_port = 9051
+virtual_addr_network = "10.192.0.0/10"
+user = "debian-tor"
+bridge_mode = "off"
+manual_bridge = ""
+bootstrap_timeout_secs = 30
+
+[dns]
+prefer_systemd_resolved = true
+fallback_to_resolv_conf = true
+
+[firewall]
+preferred_backend = "nftables"
+exclude_cidrs = ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+block_inbound = true
+
+[repair]
+conservative_only = true
+restore_dns_snapshot = true
+remove_managed_firewall_rules = true
+stop_private_tor = true

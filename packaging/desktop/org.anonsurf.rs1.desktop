@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=AnonSurf
+Comment=Tor transparent proxy manager
+Exec=anonsurf-gui
+Icon=anonsurf
+Terminal=false
+Categories=Network;Security;GTK;
+StartupNotify=true

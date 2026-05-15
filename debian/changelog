@@ -1,0 +1,8 @@
+anonsurf (0.1.0-1) unstable; urgency=medium
+
+  * Rebuild AnonSurf as an anonsurf-rs Rust workspace.
+  * Replace legacy Nim/Vala/bash implementation with Rust daemon, CLI,
+    GTK4/libadwaita GUI, private Tor management, DNS rollback, and dedicated
+    firewall backends.
+
+ -- Parrot Team <team@parrotsec.org>  Thu, 14 May 2026 00:00:00 +0700
