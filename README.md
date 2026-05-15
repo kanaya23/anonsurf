@@ -22,6 +22,16 @@ GTK/libadwaita GUI or clap CLI
 - `anonsurf-dns`: resolver detection, snapshot, restore, repair.
 - `anonsurf-tor`: private Tor config/process/control-port handling.
 
+## Toolchain
+
+Use Rust from `rustup` (the repository uses `Cargo.lock` v4 and distro-packaged
+Cargo on older Ubuntu/Debian releases can be too old).
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --component rustfmt,clippy
+. "$HOME/.cargo/env"
+```
+
 ## Build
 
 ```sh

@@ -6,6 +6,12 @@ The Rust test suite is split into two safety levels.
 
 These never mutate host networking:
 
+Use a recent Rust toolchain from `rustup` and load it in your shell first:
+
+```sh
+. "$HOME/.cargo/env"
+```
+
 ```sh
 cargo fmt --all -- --check
 cargo test --workspace
