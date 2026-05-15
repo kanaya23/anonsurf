@@ -6,6 +6,7 @@
 - Load toolchain in shell: `. "$HOME/.cargo/env"`
 - Build workspace (debug): `cargo build --workspace`
 - Build workspace (release): `cargo build --release --workspace` (also `make build`)
+- Build Debian package artifact: `make deb` (creates `../anonsurf_*_amd64.deb`)
 - Full test suite: `cargo test --workspace` (also `make test`)
 - Lint (warnings are errors): `cargo clippy --workspace --all-targets -- -D warnings`
 - Format check: `cargo fmt --all -- --check`
@@ -53,5 +54,6 @@ Runtime path model (from `anonsurf-core::Paths`):
 - Maintain backend fallback behavior:
   - firewall prefers nftables then iptables,
   - DNS backend detection supports systemd-resolved, resolvconf, or resolv.conf file mode.
+- `firewall.preferred_backend = "none"` is an explicit opt-out mode: firewall rules are intentionally skipped (useful only for constrained test environments).
 - Tests should avoid host networking mutation; follow existing temp-file/unit style and use container smoke for real network/firewall behavior.
 - Legacy tree under `legacy/` is reference only and not part of current install/build path.

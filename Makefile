@@ -7,7 +7,7 @@ POLKITDIR ?= $(PREFIX)/share/polkit-1/actions
 APPLICATIONDIR ?= $(PREFIX)/share/applications
 ICONDIR ?= $(PREFIX)/share/icons/hicolor/256x256/apps
 
-.PHONY: all build test install clean
+.PHONY: all build test deb install clean
 
 all: build
 
@@ -16,6 +16,9 @@ build:
 
 test:
 	cargo test --workspace
+
+deb:
+	dpkg-buildpackage -us -uc -b
 
 install:
 	@for bin in target/release/anonsurf target/release/anonsurf-gui target/release/anonsurfd; do \

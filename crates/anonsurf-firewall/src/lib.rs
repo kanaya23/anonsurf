@@ -56,7 +56,11 @@ pub fn apply(config: &Config, paths: &Paths) -> Result<FirewallPlan> {
             })
         }
         FirewallBackend::Iptables => apply_iptables(config),
-        FirewallBackend::None | FirewallBackend::Unknown => Err(anyhow!(
+        FirewallBackend::None => Ok(FirewallPlan {
+            backend,
+            changed: vec!["firewall backend set to none; skipped firewall changes".to_string()],
+        }),
+        FirewallBackend::Unknown => Err(anyhow!(
             "neither nftables nor iptables is available; cannot enforce transparent Tor routing"
         )),
     }
@@ -307,10 +311,16 @@ where
     if output.status.success() {
         Ok(())
     } else {
-        Err(anyhow!(
-            "{program} failed: {}",
-            String::from_utf8_lossy(&output.stderr).trim()
-        ))
+        let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
+        let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
+        let detail = if !stderr.is_empty() {
+            stderr
+        } else if !stdout.is_empty() {
+            stdout
+        } else {
+            output.status.to_string()
+        };
+        Err(anyhow!("{program} failed: {}", detail))
     }
 }
 
@@ -329,5 +339,22 @@ mod tests {
         let dns_redirect = script.find("udp dport 53 redirect").unwrap();
         let exclude_return = script.find("ip daddr {").unwrap();
         assert!(dns_redirect < exclude_return);
+    }
+
+    #[test]
+    fn explicit_none_backend_skips_firewall_changes() {
+        let mut config = Config::default();
+        config.firewall.preferred_backend = FirewallBackend::None;
+        let paths = Paths::new(
+            "/tmp/anonsurf-config-none.toml",
+            "/tmp/anonsurf-runtime-none",
+            "/tmp/anonsurf-state-none",
+        );
+        let plan = apply(&config, &paths).unwrap();
+        assert_eq!(plan.backend, FirewallBackend::None);
+        assert_eq!(
+            plan.changed,
+            vec!["firewall backend set to none; skipped firewall changes"]
+        );
     }
 }

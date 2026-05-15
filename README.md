@@ -3,6 +3,10 @@
 AnonSurf is being rebuilt as a distro-agnostic Rust service instead of the old
 Parrot-specific Nim/Vala/bash stack.
 
+## Status
+
+**Project status: finished (ship-ready for Debian/Ubuntu-style systems).**
+
 The new control path is:
 
 ```text
@@ -49,6 +53,15 @@ sudo make install
 `make install` installs prebuilt release binaries and fails if they are missing
 or outdated, so build as your normal user first.
 
+## Build and install a `.deb` package (Debian/Ubuntu)
+
+```sh
+. "$HOME/.cargo/env"
+sudo apt-get install -y debhelper dpkg-dev pkg-config libgtk-4-dev libadwaita-1-dev
+make deb
+sudo dpkg -i ../anonsurf_*_amd64.deb
+```
+
 ## Commands
 
 Legacy commands are preserved:
@@ -73,6 +86,13 @@ anonsurf doctor
 anonsurf completions bash
 anonsurf config show-default
 ```
+
+Mutating commands (`start`, `stop`, `restart`, `changeid`, `repair`, and
+`config apply-*`) require root/Polkit authorization.
+
+In restricted environments without firewall capabilities (for example containers
+without `CAP_NET_ADMIN`), you can set `firewall.preferred_backend = "none"` in
+`/etc/anonsurf-rs/config.toml` for non-anonymizing functional validation.
 
 ## Runtime Paths
 
